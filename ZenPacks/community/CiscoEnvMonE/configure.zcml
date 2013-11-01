@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configure 
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    >
+    
+    <adapter 
+        factory=".CiscoEnvMonFan.CiscoEnvMonFanInfo"
+        for=".CiscoEnvMonFan.CiscoEnvMonFan"
+        provides=".CiscoEnvMonFan.ICiscoEnvMonFanInfo"
+        />
+
+    <adapter 
+        factory=".CiscoEnvMonTemperatureSensor.CiscoEnvMonTemperatureSensorInfo"
+        for=".CiscoEnvMonTemperatureSensor.CiscoEnvMonTemperatureSensor"
+        provides=".CiscoEnvMonTemperatureSensor.ICiscoEnvMonTemperatureSensorInfo"
+        />
+
+    <adapter
+        factory=".CiscoEnvMonVoltageSensor.CiscoEnvMonVoltageSensorInfo"
+        for=".CiscoEnvMonVoltageSensor.CiscoEnvMonVoltageSensor"
+        provides=".CiscoEnvMonVoltageSensor.ICiscoEnvMonVoltageSensorInfo"
+        />
+
+    <adapter
+        factory=".CiscoEnvMonPowerSupply.CiscoEnvMonPowerSupplyInfo"
+        for=".CiscoEnvMonPowerSupply.CiscoEnvMonPowerSupply"
+        provides=".CiscoEnvMonPowerSupply.ICiscoEnvMonPowerSupplyInfo"
+        />
+
+    <browser:resourceDirectory
+        name="ciscoenvmonE"
+        directory="resources"
+        />
+
+    <browser:viewlet
+        name="js-ciscoenvmonE"
+        paths="/++resource++ciscoenvmonE/CiscoEnvMonE.js"
+        weight="10"
+        manager="Products.ZenUI3.browser.interfaces.IJavaScriptSrcManager"
+        class="Products.ZenUI3.browser.javascript.JavaScriptSrcBundleViewlet"
+        permission="zope2.Public"
+        />
+
+</configure>
