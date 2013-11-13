@@ -82,7 +82,7 @@ Download the XXXX
 Copy this file to your Zenoss server and run the following commands as the zenoss
 user.
 
-        zenpack --install ZenPacks.community.CiscoEnvMon-1.2.0.egg
+        zenpack --install ZenPacks.community.CiscoEnvMonE-2.0.3.egg
         zenoss restart
 
 Developer Installation (link mode)
@@ -93,7 +93,7 @@ ZenPack you should clone the git `repository <https://github.com/dsyer/ZenPacks.
 then install the ZenPack in developer mode using the following commands.
 
 
-        git clone git://github.com/dsyer/ZenPacks.community.CiscoEnvMonE.git
+        git clone git://github.com/NWNCorp/ZenPacks.community.CiscoEnvMonE.git
         zenpack --link --install ZenPacks.community.CiscoEnvMonE
         zenoss restart
 
@@ -129,6 +129,10 @@ Reports
 -------
 
 - No reports are included with this ZenPack
+
+Updates
+=================================
+- Version 2.03, fixed issue where last voltage restart property
 
 
 Future Enhancements / Known Issues
