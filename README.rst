@@ -33,20 +33,20 @@ We have provides zproperties that should help you almost totally avoid having to
 
 The list of zproperties are as follows:
 
-  * zCiscoMonTemperatureFactor (float, default: .90):   Setting this property will lower the temperature threshold by the 
+* zCiscoMonTemperatureFactor (float, default: .90):   Setting this property will lower the temperature threshold by the 
     the amount you specify below the device automatic shutdown threshold. For example, if a temperature sensor's shut down point
     is 40C, setting .90 will cause the zenoss thresholds to go off at 36C.
-  * zCiscoMonVoltageFactor (float, default: .90: Setting this property will have two effects.  First it will lower the voltage
+* zCiscoMonVoltageFactor (float, default: .90: Setting this property will have two effects.  First it will lower the voltage
     max threshold.  Second it will raise the voltage min threshold.  So for example if a Cisco Device will shut down 
     if a voltage sensor goes below 500mv and above 1000mv, setting this property to .90 will cause a threshold alert to 
     be generated if voltage drops below 450mv or above 900mv.
-  * zCiscoMonIgnoreNotPresent(boolean, default True): if you set this to true, any alerts showing a sensor as "notPresent" will
+* zCiscoMonIgnoreNotPresent(boolean, default True): if you set this to true, any alerts showing a sensor as "notPresent" will
     have a priority of informational rather than the normal critical status.  We find in practice that
     many routers/gateways can have external 2nd power supplies that show up with a state of  notPresent when a more
     accurate state would be "not installed".  
     But you can also have a situation where not present is very bad if you dont replace something or some
     component fails in a way that causes it to look "notPresent"..so we leave it up to you...
-  * zEnvMonMapIgnoreNames(string, default: None):  this zproperty can be used to exclude CiscoEnvMonE components from the model.  Just    add a regex, to exclude names of components from the model.  So for example to remove all componnets with the name
+* zEnvMonMapIgnoreNames(string, default: None):  this zproperty can be used to exclude CiscoEnvMonE components from the model.  Just    add a regex, to exclude names of components from the model.  So for example to remove all componnets with the name
     that starts with CPU add ^CPU to the zproperty.  for CPU or Fan 1 do ^CPU|Fan\s1 ...
  
 Important notes:
