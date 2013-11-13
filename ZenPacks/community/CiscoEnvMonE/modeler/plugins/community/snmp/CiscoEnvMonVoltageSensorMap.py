@@ -17,7 +17,7 @@ voltage sensor objects
 
 """
 
-__version__ = '$Revision: 1.0 $'[11:-2]
+__version__ = '$Revision: 1.1 $'[11:-2]
 
 from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetTableMap
 from ZenPacks.community.CiscoEnvMonE.utils import decode_envmon_state, match_exclude_regex
@@ -40,7 +40,7 @@ class CiscoEnvMonVoltageSensorMap(SnmpPlugin):
                         '.7': 'state',
                         '.4': 'voltage_threshold_low',
                         '.5': 'voltage_threshold_high',
-                        '.6': 'last_shutdown'
+                        '.6': 'voltage_last_shutdown'
                     }), )
 
     def process(self, device, results, log):
