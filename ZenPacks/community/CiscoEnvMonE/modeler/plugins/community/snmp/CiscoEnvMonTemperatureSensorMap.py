@@ -21,7 +21,7 @@ __version__ = '$Revision: 1.1 $'[11:-2]
 
 from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetTableMap
 from ZenPacks.community.CiscoEnvMonE.utils import decode_envmon_state, match_exclude_regex
-
+import re
 
 class CiscoEnvMonTemperatureSensorMap(SnmpPlugin):
     """Map Cisco Environment Temperature Sensors table to model."""
@@ -63,6 +63,10 @@ class CiscoEnvMonTemperatureSensorMap(SnmpPlugin):
             # guard against this condition
             if om.title == '':
                 om.title = 'Unknown-(probable IOS bug)'
+
+            # temp sensors will sometimes have status appended on to the name, remove this
+            # it looks something like this:  Switch 1 - Temp Sensor 2, YELLOW
+            om.title = re.sub(r', Status is [YELLOW|RED|GREEN].*', '', om.title)
 
             if match_exclude_regex(device, om.title, self.maptype, log):
                 continue

@@ -12,6 +12,8 @@
 
 from ZenPacks.community.CiscoEnvMonE.utils import decode_envmon_state
 from ZODB.transact import transact
+import logging
+log = logging.getLogger("zen.Events")
 
 
 @transact
