@@ -54,6 +54,11 @@ Important notes:
 
 Important Note 1:  There are no mibs/traps in this ZenPack of transforms for syslogs/traps.  We tend to try to keep syslogs/traps clustered in their own separate zenpacks and not part of "polling" based zenpacks like this one..
 
+    If you want an example on how to parse the envmon mib traps and as a bonus check to see if a component is monitored and drop the event if it isnt
+        you can refer to this gist.  But as a caution...make sure you keep an eye on zeneventd.log when you add new traps because
+        in the wild you can get unexpected results that break transforms.
+        
+        https://gist.github.com/dougsyer/4b21043e4e0143a20534
 
 Important Note 2:  Unlike the CiscoEnvMon Zenpack, there is no modelling for Cisco Expansion cards built into the Zenpack.  The reason is that we use the Enterprise Zenpack to provide this modelling.
 
@@ -74,6 +79,10 @@ versions. You can download the free Core version of Zenoss from http://community
 
 Installation
 ============
+
+**IMPORTANT:  if you dont have this device class, you must create it before Installation:  /Network/Cisco**
+
+Failure to do so will cause the zenpack installation to fail. This will be fixed in the next update.
 
 Normal Installation (packaged egg)
 ----------------------------------
@@ -119,13 +128,19 @@ devices.
 
 Monitoring Templates
 --------------------
-
 - Devices/Network/Cisco/CiscoEnvMonFan
 - Devices/Network/Cisco/CiscoEnvMOnPowerSupply
 - Devices/Network/Cisco/CiscoEnvMonTemperatureSensor
 - Devices/Network/Cisco/CiscoEnvMonVoltageSensor
 
-Reports
+Event Classes Created
+---------------------
+/Events/Status/CiscoEnvMonFan
+/Events/Status/CiscoEnvMonPowerSupply
+/Events/Status/CiscoEnvMonTemperatureSensor
+/Events/Status/CiscoEnvMonVoltageSensor
+ 
+ Reports
 -------
 
 - No reports are included with this ZenPack
@@ -153,3 +168,22 @@ Future Enhancements / Known Issues
   any templates to these components but again, there shouldnt be alot of components per device in a not present
   state so I dont think this will cause much load but it may cause some NaN values... If i do see alot of Nan 
   values i probably will not allow the templates to bind to these devices after the model.
+- If you run this in parallel with the Enterprise cisco zenpack and use it to model the same components, you will have an issue where 
+  sometimes the events from this ZenPack will attach to the enterprise cisco zenapack components.  this shouldnt cause 
+  any stility issues and the worka round it to filter the components using the documentation above...if you plan to do it
+  
+Known Cisco Bugs or Quirks that can effect the ZenPack
+============================================
+- RPS power supplies in some routers will poll as not present but will send traps with no component in them.  this is an ios issue
+  the work around it to catch and identify it in your transforms.
+- In some switch models (35xx I believe) voltage sensors data is included in the temperature sensor data.  Ive made some attempt
+  at identifying this condition however if you see temperature at 1000C its probably that issue
+- 38XX switches will show a 0 temperature sensor threhsold.  not sure the exact ioss effected but since 38XX are fairly recent most
+  or all of these as of 3/12/2015 have this issue.  The stats will probably work and some temperature sensors work but in this case
+  I have disabled the temperature sensor threhsolds by setting them in the background to maxint/2 and -maxint/2-1 and made the gui
+  show the sensor threshold as unknown
+- some fans will model looking something like this:  Fan 1 - OK...There is no major effect other than confusion because you will
+  have a component that says Fan 1 - Ok and a status of Failed or something like that and your traps may or may not match that component name
+  depending on how clever you have gotten with them.  I plan on removing these in a future release.
+- Some power supplies will model looking something like this:  Power Supply 1 - RPS OK.  or RPS notPresent.  Again this causes confusion.
+  however due to the RPS bugs out there I have left that alone for now.
