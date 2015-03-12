@@ -13,11 +13,11 @@
 from ZenPacks.community.CiscoEnvMonE.utils import decode_envmon_state
 from ZODB.transact import transact
 import logging
-log = logging.getLogger("zen.Events")
+log = logging.getLogger("zen.CiscoEnvmonE")
 
 
 @transact
-def envmon_status_handler(device, component, evt):
+def envmon_status_handler(device, component, evt, log=log):
     '''
     Update status properties in the model based on build in
     Zenoss status thresholds
@@ -40,22 +40,28 @@ def envmon_status_handler(device, component, evt):
         setattr(component, 'state', maybe_new_state)
 
     if device.zCiscoMonIgnoreNotPresent and component.state == 'notPresent':
-          evt._action = "drop"
+        evt.severity = 2
 
     evt.summary = evt.message = "Cisco Hardware Alert, %s\
         Changed status to: %s" % (component.meta_type, maybe_new_state)
 
 
-def envmon_process_threshold(device, component, evt, t_type):
+def envmon_process_threshold(device, component, evt, t_type, log=log):
+
+    if not device or not component:
+        evt.summary = 'Received temerperature alert not maping to component, its possible that the temp sensor snmp code has issues on the device'
+        evt.severity = 3
+        return
+
     if t_type == 'vHigh':
         evt.summary = evt.message = (
             "High Voltage Threshold detected, current reading is %s mv, "
-            "device will shut down at %s") % (evt.current, component.hv_threshold_string)
+            "device will shut down at %s") % (evt.current, component.voltage_threshold_high)
 
     elif t_type == 'vLow':
         evt.summary = evt.message = (
             "Low Voltage Threshold detected, current reading is %s mv, "
-            "device will shut down at %s") % (str(evt.current), component.lv_threshold_string)
+            "device will shut down at %s") % (str(evt.current), component.voltage_threshold_low)
 
     elif t_type == 'tHigh':
         if evt.current and float(evt.current) > 1000.0:
@@ -69,4 +75,4 @@ def envmon_process_threshold(device, component, evt, t_type):
         else:
             evt.summary = evt.message = (
                 u"High temperature threshold detected, current reading is %s\u00b0C "
-                u"device will shut down at %s\u00b0C") % (str(evt.current), str(int(component.sensor_temperature_threshold)))
+                u"device will shut down at %s C") % (str(evt.current), str(int(component.temperature_threshold)))

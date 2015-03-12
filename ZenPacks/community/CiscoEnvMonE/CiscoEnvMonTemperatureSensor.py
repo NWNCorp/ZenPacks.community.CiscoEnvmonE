@@ -34,13 +34,14 @@ from Products.Zuul.infos import ProxyProperty
 from Products.Zuul.utils import ZuulMessageFactory as _t
 from Products.ZenModel.ZenossSecurity import ZEN_CHANGE_DEVICE
 
+TEMP_MAX = maxint/2
 
 class CiscoEnvMonTemperatureSensor(TemperatureSensor):
     """Cisco TemperatureSensor object"""
 
     portal_type = meta_type = 'CiscoEnvMonTemperatureSensor'
 
-    temperature_threshold = ''
+    temperature_threshold = str(TEMP_MAX)
     temperature_last_shutdown = ''
     state = 'Unknown'
 
@@ -62,44 +63,29 @@ class CiscoEnvMonTemperatureSensor(TemperatureSensor):
             }, )
         }, )
 
-    def manage_deleteComponent(self, REQUEST=None):
-        """
-        Delete Component
-        """
-        self.getPrimaryParent()._delObject(self.id)
-        if REQUEST is not None:
-            REQUEST['RESPONSE'].redirect(self.device().hw.absolute_url())
-
     @property
-    def temp_threshold_string(self):
-        tc = self.temperature_threshold or 'Unknown'
-        if tc == 'Unknown':
+    def temp_threshold_string(self, log=log):
+        tc = int(self.temperature_threshold)
+        if tc == TEMP_MAX:
             return 'Not Available'
         tf = str(self.getTempFahrenheit(tc))
         return u"%s \u00b0C / %s F" % (tc, tf)
 
     @property
-    def temp_lastshutdown_string(self):
+    def temp_lastshutdown_string(self, log=log):
         tc = self.temperature_last_shutdown or 'Unknown'
         if tc == 'Unknown':
             return 'Not Available'
         tf = self.getTempFahrenheit(tc)
         return "%s \u00b0C / %s \u00b0F" % (tc, tf)
 
-    @property
-    def sensor_temperature_threshold(self):
-        if self.temperature_threshold == '':
-            return maxint
-        else:
-            return float(self.temperature_threshold)
-
-    def getTempFahrenheit(self, temp_C):
+    def getTempFahrenheit(self, temp_C, log=log):
         """
         Return the degrees fahrenheit given degrees Celcius
         """
-        if temp_C is not None:
-            temp_F = int(temp_C) * 9 / 5 + 32
-            return long(temp_F)
+        if temp_C:
+            temp_F = (temp_C * 1.8) + 32
+            return str(round(temp_F, 1))
         return None
 
 

@@ -19,6 +19,7 @@ voltage sensor objects
 
 __version__ = '$Revision: 1.1 $'[11:-2]
 
+from sys import maxint
 from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetTableMap
 from ZenPacks.community.CiscoEnvMonE.utils import decode_envmon_state, match_exclude_regex
 
@@ -71,5 +72,16 @@ class CiscoEnvMonVoltageSensorMap(SnmpPlugin):
             om.id = self.prepId(om.title)
             om.state = decode_envmon_state(om.state)
             om.snmpindex = snmpindex.strip('.')
+
+            # you can get some crazy values for this...do a sanity check
+            vsh = getattr(om, 'voltage_threshold_high', '')
+            if not vsh or vsh <= 0 or vsh >= 10000:
+               om.temperature_threshold = str(maxint/2)
+
+            # you can get some crazy values for this...do a sanity check
+            vsl = getattr(om, 'voltage_threshold_low', '')
+            if not vsl or vsl <= 0:
+               om.temperature_threshold = str((-maxint-1)/2)
+
             rm.append(om)
         return rm

@@ -34,16 +34,19 @@ from Products.Zuul.utils import ZuulMessageFactory as _t
 from Products.ZenModel.ZenossSecurity import ZEN_CHANGE_DEVICE
 from Products.ZenUtils.Utils import convToUnits
 
+MAX_VOLTAGE = maxint/2
+MIN_VOLTAGE = (-maxint-1)/2
+
 
 class CiscoEnvMonVoltageSensor(HWComponent):
     """Cisco Voltage Sensor object"""
 
     portal_type = meta_type = 'CiscoEnvMonVoltageSensor'
 
-    voltage_threshold_low = maxint
-    voltage_threshold_high = -maxint-1
+    voltage_threshold_low = MAX_VOLTAGE
+    voltage_threshold_high = MIN_VOLTAGE
     voltage_last_shutdown = ''
-    state = ''
+    state = 'Unknown'
 
     _properties = HWComponent._properties + (
         {'id': 'voltage_threshold_low', 'type': 'string'},
@@ -70,28 +73,6 @@ class CiscoEnvMonVoltageSensor(HWComponent):
         if hw:
             return hw.device()
 
-    def manage_deleteComponent(self, REQUEST=None):
-        """Delete Component"""
-        self.getPrimaryParent()._delObject(self.id)
-        if REQUEST is not None:
-            REQUEST['RESPONSE'].redirect(self.device().hw.absolute_url())
-
-    @property
-    def low_voltage_threshold(self):
-        """ return low voltage property as float setting for use in thresholding """
-        if self.voltage_threshold_low == '':
-            return -maxint-1
-        else:
-            return float(self.voltage_threshold_low)
-
-    @property
-    def high_voltage_threshold(self):
-        """ high voltage shutdown property as float to be used for threhsolding """
-        if self.voltage_threshold_high == '':
-            return maxint
-        else:
-            return float(self.voltage_threshold_high)
-
     def getMillivoltsString(self, mv):
         """Return millivolts as a string to be used in gui"""
         if mv == '':
@@ -104,11 +85,17 @@ class CiscoEnvMonVoltageSensor(HWComponent):
 
     @property
     def lv_threshold_string(self):
-        return str(self.getMillivoltsString(self.voltage_threshold_low))
+        lvt = self.voltage_threshold_low
+        if lvt == str(MIN_VOLTAGE):
+            return "Not Provided"
+        return str(self.getMillivoltsString(lvt))
 
     @property
     def hv_threshold_string(self):
-        return str(self.getMillivoltsString(self.voltage_threshold_high))
+        hvt = self.voltage_threshold_high
+        if hvt == str(MAX_VOLTAGE):
+            return "Not Provided"
+        return str(self.getMillivoltsString(hvt))
 
     @property
     def voltage_last_shutdown_string(self):

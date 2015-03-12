@@ -1,4 +1,5 @@
 *~
+*.bak
 *.pyc
 *.pyo
 build
@@ -6,4 +7,3 @@ setuptools*
 *.egg-info
 *EGG-INFO*
 *sublime*
-dist

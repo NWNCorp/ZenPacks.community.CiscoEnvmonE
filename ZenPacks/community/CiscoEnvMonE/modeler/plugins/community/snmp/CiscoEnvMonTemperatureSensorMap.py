@@ -17,11 +17,12 @@ temperature sensor objects
 
 """
 
-__version__ = '$Revision: 1.1 $'[11:-2]
+__version__ = '$Revision: 1.2 $'[11:-2]
 
 from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetTableMap
 from ZenPacks.community.CiscoEnvMonE.utils import decode_envmon_state, match_exclude_regex
 import re
+from sys import maxint
 
 class CiscoEnvMonTemperatureSensorMap(SnmpPlugin):
     """Map Cisco Environment Temperature Sensors table to model."""
@@ -63,10 +64,12 @@ class CiscoEnvMonTemperatureSensorMap(SnmpPlugin):
             # guard against this condition
             if om.title == '':
                 om.title = 'Unknown-(probable IOS bug)'
+                log.info('Not getting temperature sensor names correctly, may be IOS bug')
 
-            # temp sensors will sometimes have status appended on to the name, remove this
-            # it looks something like this:  Switch 1 - Temp Sensor 2, YELLOW
-            om.title = re.sub(r', Status is [YELLOW|RED|GREEN].*', '', om.title)
+            # for some reason Cisco appends the current status to the name of the component
+            # strip this off as is makes attaching traps etc very difficult
+            om.title = re.sub(r', (RED|YELLOW|GREEN)$', '', om.title)
+            om.title = om.title.rstrip(', YELLOW').rstrip(', RED').rstrip(', GREEN')
 
             if match_exclude_regex(device, om.title, self.maptype, log):
                 continue
@@ -74,5 +77,11 @@ class CiscoEnvMonTemperatureSensorMap(SnmpPlugin):
             om.id = self.prepId(om.title)
             om.state = decode_envmon_state(om.state)
             om.snmpindex = snmpindex.strip('.')
+
+            # you can get some crazy values for this...do a sanity check
+            ts = getattr(om, 'temperature_threshold', '')
+            if not ts or ts <= 0 or ts >= 750:
+               om.temperature_threshold = str(maxint/2)
+
             rm.append(om)
         return rm
