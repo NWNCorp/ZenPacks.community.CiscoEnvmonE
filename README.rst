@@ -132,7 +132,7 @@ Reports
 
 Updates
 =================================
-- Version 2.04, (currently in development)
+- Version 2.05
   - add logging to transforms
   - remove color codes from temperature sensors during modelling
   - fix errors with temperature sensor transforms due to incorrect access of properties
