@@ -17,7 +17,7 @@ voltage sensor objects
 
 """
 
-__version__ = '$Revision: 1.1 $'[11:-2]
+__version__ = '$Revision: 1.2 $'[11:-2]
 
 from sys import maxint
 from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetTableMap
