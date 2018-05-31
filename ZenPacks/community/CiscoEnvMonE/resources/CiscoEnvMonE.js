@@ -1,5 +1,16 @@
 (function(){
 
+Ext.apply(Zenoss.render, {
+    envmone_status: function(value) {
+        switch (value) {
+            case 'Normal': return Zenoss.render.upDownUnknown('Up', value);
+            case 'Unknown': return Zenoss.render.upDownUnknown('Unknown', value);
+            case 'notPresent': return Zenoss.render.upDownUnknown('notPresent', value);
+            default: return Zenoss.render.upDownUnknown('Down', value)
+        }
+    }
+});
+
 var ZC = Ext.ns('Zenoss.component');
 
 ZC.registerName('CiscoEnvMonFan', _t('Fan (envmon)'), _t('Fans (envmon)'));
@@ -41,6 +52,7 @@ ZC.CiscoEnvMonFanPanel = Ext.extend(ZC.ComponentGridPanel, {
                 id: 'status',
                 dataIndex: 'status',
                 header: _t('Status'),
+                renderer: Zenoss.render.envmone_status,
                 width: 60
             },{
                 id: 'monitored',
@@ -111,6 +123,7 @@ ZC.CiscoEnvMonTemperatureSensorPanel = Ext.extend(ZC.ComponentGridPanel, {
                 dataIndex: 'status',
                 header: _t('Status'),
                 width: 100,
+                renderer: Zenoss.render.envmone_status,
                 sortable: true
             },{
                 id: 'monitored',
@@ -184,6 +197,7 @@ ZC.CiscoEnvMonPowerSupplyPanel = Ext.extend(ZC.ComponentGridPanel, {
                 id: 'status',
                 dataIndex: 'status',
                 header: _t('Status'),
+                renderer: Zenoss.render.envmone_status,
                 width: 100,
                 sortable: true
             },{
@@ -250,6 +264,7 @@ ZC.CiscoEnvMonVoltageSensorPanel = Ext.extend(ZC.ComponentGridPanel, {
                 dataIndex: 'status',
                 header: _t('Status'),
                 width: 150,
+                renderer: Zenoss.render.envmone_status,
                 sortable: true
              },{
                 id: 'monitored',
