@@ -35,6 +35,7 @@ def decode_ps_source(code):
 
 
 def match_exclude_regex(dev, comp_name, map_type, log):
+    """used to exclude componets based on name in modeling """
     dontCollectNames = getattr(dev, 'zEnvMonMapIgnoreNames', None)
     if dontCollectNames and search(dontCollectNames, comp_name):
         log.info( "CiscoEnvMonComponent %s name %s matched the"

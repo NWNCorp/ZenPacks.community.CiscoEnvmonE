@@ -1,3 +1,7 @@
+"""
+CiscoEnvMonTemperatureSensorMap maps the ciscoEnvMonTemperatureStatusTable table to temperature sensor objects
+"""
+
 ################################################################################
 #
 # This program is part of the CiscoEnvMonE Zenpack for Zenoss.
@@ -10,19 +14,11 @@
 #
 ################################################################################
 
-__doc__ = """ CiscoEnvMonTemperatureSensorMap
 
-CiscoEnvMonTemperatureSensorMap maps the ciscoEnvMonTemperatureStatusTable table to
-temperature sensor objects
-
-"""
-
-__version__ = '$Revision: 1.2 $'[11:-2]
-
+from sys import maxint
+import re
 from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetTableMap
 from ZenPacks.community.CiscoEnvMonE.utils import decode_envmon_state, match_exclude_regex
-import re
-from sys import maxint
 
 class CiscoEnvMonTemperatureSensorMap(SnmpPlugin):
     """Map Cisco Environment Temperature Sensors table to model."""
@@ -47,7 +43,6 @@ class CiscoEnvMonTemperatureSensorMap(SnmpPlugin):
         """collect snmp information from this device"""
 
         log.info('processing %s for device %s', self.name(), device.id)
-        getdata, tabledata = results
 
         # if no no comps found exit
         t_tbl = results[1].get('TemperatureTable', {})
@@ -81,7 +76,13 @@ class CiscoEnvMonTemperatureSensorMap(SnmpPlugin):
             # you can get some crazy values for this...do a sanity check
             ts = getattr(om, 'temperature_threshold', '')
             if not ts or ts <= 0 or ts >= 750:
-               om.temperature_threshold = str(maxint/2)
+                om.temperature_threshold = str(maxint/2)
 
             rm.append(om)
+
+        if rm.maps:
+            log.info('Found %d CiscoEnvMonTemperaturSensors' % len(rm.maps))
+        else:
+            log.info('No CiscoEnvMonTemperaturSensors Found')
+
         return rm

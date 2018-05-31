@@ -10,31 +10,24 @@
 #
 ################################################################################
 
-__doc__ = """CiscoEnvMonFan
-
-CiscoEnvmonFan is a class describing a fan as defined in the
-CiscoEnvmon Mib.
-
+"""
+This module provides Monitoring Functionality for Cisco EnvMonFan Objects
 """
 
-__version__ = "$Revision: 2.0 $"[11:-2]
-
 import logging
-log = logging.getLogger("zen.CiscoEnvMon")
-from Globals import InitializeClass
+from zope.interface import implements
+from Products.ZenModel.ZenossSecurity import ZEN_CHANGE_DEVICE
 from Products.ZenModel.Fan import Fan
 from Products.ZenModel.HWComponent import HWComponent
 from Products.ZenRelations.RelSchema import ToManyCont, ToOne
 from Products.Zuul.infos.component import ComponentInfo
 from Products.Zuul.interfaces.component import IComponentInfo
-from zope.interface import implements
-from Products.Zuul.form import schema
-from Products.Zuul.infos import ProxyProperty
-from Products.Zuul.utils import ZuulMessageFactory as _t
+
+log = logging.getLogger("zen.CiscoEnvMon")
 
 
 class CiscoEnvMonFan(Fan):
-    """Cisco Fan object"""
+    """Cisco Fan object monitored via the Cisco Envmon Mib"""
 
     portal_type = meta_type = 'CiscoEnvMonFan'
 
@@ -49,33 +42,25 @@ class CiscoEnvMonFan(Fan):
             'id': 'perfConf',
             'name': 'Template',
             'action': 'objTemplates',
-            'permissions': ('ZEN_CHANGE_DEVICE',)
+            'permissions': (ZEN_CHANGE_DEVICE, )
             }, )
         }, )
 
-    def manage_deleteComponent(self, REQUEST=None):
-        """
-        Delete Component
-        """
-        self.getPrimaryParent()._delObject(self.id)
-        if REQUEST is not None:
-            REQUEST['RESPONSE'].redirect(self.device().hw.absolute_url())
-
 
 class ICiscoEnvMonFanInfo(IComponentInfo):
+    """ CiscoEnvMonFan Interface """
     pass
 
 
 class CiscoEnvMonFanInfo(ComponentInfo):
+    """ CiscoEnvMonFan Info Adapter """
     implements(ICiscoEnvMonFanInfo)
 
-    # override the default status method to show component-specific status
     @property
     def status(self):
+        """override the default status method to show component-specific status"""
         fan_state = self._object.state
         if fan_state:
             return self._object.state
-        else:
-            return 'Unknown'
 
-InitializeClass(CiscoEnvMonFan)
+        return 'Unknown'

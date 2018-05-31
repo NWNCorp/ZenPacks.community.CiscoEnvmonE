@@ -10,6 +10,8 @@
 #
 ###############################################################################
 
+""" zenpack threshold """
+
 from ZenPacks.community.CiscoEnvMonE.utils import decode_envmon_state
 from ZODB.transact import transact
 import logging
@@ -18,10 +20,10 @@ log = logging.getLogger("zen.CiscoEnvmonE")
 
 @transact
 def envmon_status_handler(device, component, evt, log=log):
-    '''
+    """
     Update status properties in the model based on build in
     Zenoss status thresholds
-    '''
+    """
 
     if not device or not component:
         return
@@ -47,7 +49,7 @@ def envmon_status_handler(device, component, evt, log=log):
 
 
 def envmon_process_threshold(device, component, evt, t_type, log=log):
-
+    """ formats threshold events """
     if not device or not component:
         evt.summary = 'Received temerperature alert not maping to component, its possible that the temp sensor snmp code has issues on the device'
         evt.severity = 3

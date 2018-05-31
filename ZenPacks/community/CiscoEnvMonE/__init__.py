@@ -10,18 +10,20 @@
 #
 ###############################################################################
 
-import logging
-log = logging.getLogger("zen.CiscoEnvMon")
-import Globals
-import os.path
-from Products.ZenModel.ZenPack import ZenPackBase
-from Products.ZenRelations.RelSchema import ToManyCont, ToOne
-from Products.ZenModel.DeviceHW import DeviceHW
-from Products.ZenUtils.Utils import unused
-from Products.ZenRelations.zPropertyCategory import setzPropertyCategory
-from Products.Zuul.interfaces import ICatalogTool
 
+""" Zenpack Loader and installer """
+
+import Globals
+import logging
+from Products.ZenUtils.Utils import unused
+from Products.Zuul.interfaces import ICatalogTool
+from Products.ZenRelations.zPropertyCategory import setzPropertyCategory
+from Products.ZenModel.ZenPack import ZenPackBase
+
+log = logging.getLogger("zen.CiscoEnvMon")
 unused(Globals)
+
+import ZenPacks.community.CiscoEnvMonE.patches
 
 productNames = (
     'CiscoEnvMonFan',
@@ -30,32 +32,16 @@ productNames = (
     'CiscoEnvMonPowerSupply',
     )
 
-
-skinsDir = os.path.join(os.path.dirname(__file__), 'skins')
-from Products.CMFCore.DirectoryView import registerDirectory
-if os.path.isdir(skinsDir):
-    registerDirectory(skinsDir, globals())
-
-# add new type of hardware relation so we can access
-# in the model via dev.hw.xxx
-DeviceHW._relations += (("ciscoenvvoltagesensors", ToManyCont(
-    ToOne, "ZenPacks.community.CiscoEnvMonE.CiscoEnvMonVoltageSensor", "hw")), )
-DeviceHW._relations += (("ciscoenvtempsensors", ToManyCont(
-    ToOne, "ZenPacks.community.CiscoEnvMonE.CiscoEnvMonTemperatureSensor", "hw")), )
-DeviceHW._relations += (("ciscoenvfans", ToManyCont(
-    ToOne, "ZenPacks.community.CiscoEnvMonE.CiscoEnvMonFan", "hw")), )
-DeviceHW._relations += (("ciscoenvpowersupplies", ToManyCont(
-    ToOne, "ZenPacks.community.CiscoEnvMonE.CiscoEnvMonPowerSupply", "hw")), )
-
-
 class ZenPack(ZenPackBase):
+    """ zenpack installer
 
-    # setting zCiscoMonIgnoreNotPresent will drop alerts from components in the
-    # notPresent state
-    # setting zCiscoMonTemperatureFactor will set temperaturealert thresholds
-    # to be shutdown temp threshold - zCiscoMonTemperatureFactor (in celcius)
-    # zCiscoMonVoltageFactor works the same way (millivolts)
-    # note -2 temperature factore is about 4F
+    setting zCiscoMonIgnoreNotPresent will drop alerts from components in the
+    notPresent state
+    setting zCiscoMonTemperatureFactor will set temperaturealert thresholds
+    to be shutdown temp threshold - zCiscoMonTemperatureFactor (in celcius)
+    zCiscoMonVoltageFactor works the same way (millivolts)
+        note -2 temperature factore is about 4F
+    """
 
     packZProperties = [
         ('zCiscoMonIgnoreNotPresent', True, 'boolean'),
@@ -76,13 +62,10 @@ class ZenPack(ZenPackBase):
 
         self._buildHWRelations()
 
-    def upgrade(self, app):
-
-        ZenPackBase.upgrade(self, app)
-        self._buildHWRelations()
-
     def remove(self, app, leaveObjects=False):
         if not leaveObjects:
+
+            from Products.ZenModel.DeviceHW import DeviceHW
 
             NEW_COMPONENT_TYPES = tuple([x for x in productNames])
 
@@ -95,12 +78,19 @@ class ZenPack(ZenPackBase):
                     component = brain.getObject()
                     component.getPrimaryParent()._delObject(component.id)
 
+            hw_relations = (
+                "ciscoenvvoltagesensors",
+                "ciscoenvtempsensors"
+                "ciscoenvfans"
+                "ciscoenvpowersupplies"
+            )
+
             # remote HW component relations
             DeviceHW._relations = tuple(
-                [x for x in DeviceHW._relations if x[0] != 'voltagesensors'])
+                [x for x in DeviceHW._relations if x[0] not in hw_relations])
 
-            log.info('Removing ZenPacks.community.CiscoEnvMonE \
-                relationships from existing devices')
+            log.info('Removing ZenPacks.community.CiscoEnvMonE'
+                     'relationships from existing devices')
 
             self._buildHWRelations()
 

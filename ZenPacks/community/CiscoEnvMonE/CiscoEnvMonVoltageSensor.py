@@ -10,36 +10,31 @@
 #
 ################################################################################
 
-__doc__ = """CiscoEnvMonVoltageSensor
-
-CiscoEnvmonVoltageSensor is a class describing a voltage sensor as defined in the
-CiscoEnvmon Mib.
-
+"""
+This module provides Monitoring Functionality for Cisco CiscoEnvMonVoltageSensor Objects
 """
 
-__version__ = "$Revision: 1.0 $"[11:-2]
-
-import logging
-log = logging.getLogger("zen.CiscoEnvMon")
-from Globals import InitializeClass
-from Products.ZenModel.HWComponent import HWComponent
-from Products.ZenRelations.RelSchema import ToManyCont, ToOne
 from sys import maxint
+import logging
+
+from zope.interface import implements
+from Products.ZenModel.HWComponent import HWComponent
+from Products.ZenModel.ZenossSecurity import ZEN_CHANGE_DEVICE
+from Products.ZenRelations.RelSchema import ToManyCont, ToOne
 from Products.Zuul.infos.component import ComponentInfo
 from Products.Zuul.interfaces.component import IComponentInfo
-from zope.interface import implements
 from Products.Zuul.form import schema
 from Products.Zuul.infos import ProxyProperty
 from Products.Zuul.utils import ZuulMessageFactory as _t
-from Products.ZenModel.ZenossSecurity import ZEN_CHANGE_DEVICE
-from Products.ZenUtils.Utils import convToUnits
 
-MAX_VOLTAGE = maxint/2
-MIN_VOLTAGE = (-maxint-1)/2
+log = logging.getLogger("zen.CiscoEnvMon")
 
 
 class CiscoEnvMonVoltageSensor(HWComponent):
-    """Cisco Voltage Sensor object"""
+    """Cisco CiscoEnvMonVoltageSensor object  monitored via the Cisco Envmon Mib"""
+
+    MAX_VOLTAGE = maxint / 2
+    MIN_VOLTAGE = (-maxint - 1) / 2
 
     portal_type = meta_type = 'CiscoEnvMonVoltageSensor'
 
@@ -64,68 +59,72 @@ class CiscoEnvMonVoltageSensor(HWComponent):
             'id': 'perfConf',
             'name': 'Template',
             'action': 'objTemplates',
-            'permissions': ('ZEN_CHANGE_DEVICE',)
+            'permissions': (ZEN_CHANGE_DEVICE, )
             }, )
         }, )
 
     def device(self):
+        """ required for all components path back to the device """
         hw = self.hw()
         if hw:
             return hw.device()
 
     def getMillivoltsString(self, mv):
         """Return millivolts as a string to be used in gui"""
+
         if mv == '':
             return 'Not Reported'
+
         return " %s mv" % "{:,}".format(int(mv))
 
     @property
     def combined_shutdown_thresholds_string(self):
+        """ displays low and high voltage shut down thresholds """
         return "%s/%s" % (self.lv_threshold_string, self.hv_threshold_string)
 
     @property
     def lv_threshold_string(self):
+        """ returns low voltage threshold """
         lvt = self.voltage_threshold_low
-        if lvt == str(MIN_VOLTAGE):
+        if lvt == str(self.MIN_VOLTAGE):
             return "Not Provided"
         return str(self.getMillivoltsString(lvt))
 
     @property
     def hv_threshold_string(self):
+        """ return high voltage threshold """
         hvt = self.voltage_threshold_high
-        if hvt == str(MAX_VOLTAGE):
+        if hvt == str(self.MAX_VOLTAGE):
             return "Not Provided"
         return str(self.getMillivoltsString(hvt))
 
     @property
     def voltage_last_shutdown_string(self):
+        """ provide last shutdown voltage """
         return str(self.getMillivoltsString(self.voltage_last_shutdown))
 
 
 class ICiscoEnvMonVoltageSensorInfo(IComponentInfo):
+    """ CiscoEnvMonVoltageSenso Interface """
+
     lv_threshold_string = schema.TextLine(title=_t(u'Low Voltage Shutdown Threshold'))
     voltage_threshold_high = schema.TextLine(title=_t(u'High Voltage Shutdown Threshold'))
-    voltage_last_shutdown = schema.TextLine(title=_t(u'Voltage reading at last \
-        emergency shutdown'))
-    state = schema.TextLine(title=_t(u'current state'))
+    voltage_last_shutdown = schema.TextLine(title=_t(u'Voltage reading at last emergency shutdown'))
 
 
 class CiscoEnvMonVoltageSensorInfo(ComponentInfo):
+    """ CiscoEnvMonVoltageSensor Info Adapter """
     implements(ICiscoEnvMonVoltageSensorInfo)
 
     combined_shutdown_thresholds_string = ProxyProperty('combined_shutdown_thresholds_string')
     voltage_threshold_low = ProxyProperty('lv_threshold_string')
     voltage_threshold_high = ProxyProperty('hv_threshold_string')
     voltage_last_shutdown = ProxyProperty('voltage_last_shutdown_string')
-    state = ProxyProperty('state')
 
-    # override the default status method to show component-specific status
     @property
     def status(self):
+        """override the default status method to show component-specific status"""
         voltage_state = self._object.state
         if voltage_state:
             return self._object.state
-        else:
-            return 'Unknown'
-
-InitializeClass(CiscoEnvMonVoltageSensor)
+        return 'Unknown'
