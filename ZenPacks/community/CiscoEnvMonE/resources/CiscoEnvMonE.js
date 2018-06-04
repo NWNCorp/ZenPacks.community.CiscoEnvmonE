@@ -14,9 +14,9 @@ Ext.apply(Zenoss.render, {
 var ZC = Ext.ns('Zenoss.component');
 
 ZC.registerName('CiscoEnvMonFan', _t('Fan (envmon)'), _t('Fans (envmon)'));
-ZC.registerName('CiscoEnvMonTemperatureSensor', _t('Temperature Sensor( envmon)'), _t('Temperature Sensors (envmon)'));
+ZC.registerName('CiscoEnvMonTemperatureSensor', _t('Temperature Sensor (envmon)'), _t('Temperature Sensors (envmon)'));
 ZC.registerName('CiscoEnvMonPowerSupply', _t('Power Supply (envmon)'), _t('Power Supplies (envmon)'));
-ZC.registerName('CiscoEnvMonVoltageSensor', _t('Voltage Sensor'), _t('Voltage Sensors'));
+ZC.registerName('CiscoEnvMonVoltageSensor', _t('Voltage Sensor (envmon)'), _t('Voltage Sensors'));
 
 ZC.CiscoEnvMonFanPanel = Ext.extend(ZC.ComponentGridPanel, {
     constructor: function(config) {
