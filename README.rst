@@ -5,10 +5,10 @@ ZenPacks.community.CiscoEnvMonE
 About
 =====
 
-This is a heavily modified version of Egor Puzanov's original Cisco Envmon. 
+This is a heavily modified version of Egor Puzanov's original Cisco Envmon.
 Thanks go to Egor for all his work..
 
-This ZenPack is intended suppliment the hardware monitoring provided by the Zenoss 
+This ZenPack is intended suppliment the hardware monitoring provided by the Zenoss
 Enteprise(commercial) CiscoMonitor Zenpack.  It can be installed conflict-free
 on a zenoss system alongside the existing Envmon ZenPack and or the commercial
 CiscoMonitor ZenPack..
@@ -33,22 +33,22 @@ We have provides zproperties that should help you almost totally avoid having to
 
 The list of zproperties are as follows:
 
-* zCiscoMonTemperatureFactor (float, default: .90):   Setting this property will lower the temperature threshold by the 
+* zCiscoMonTemperatureFactor (float, default: .90):   Setting this property will lower the temperature threshold by the
     the amount you specify below the device automatic shutdown threshold. For example, if a temperature sensor's shut down point
     is 40C, setting .90 will cause the zenoss thresholds to go off at 36C.
 * zCiscoMonVoltageFactor (float, default: .90: Setting this property will have two effects.  First it will lower the voltage
-    max threshold.  Second it will raise the voltage min threshold.  So for example if a Cisco Device will shut down 
-    if a voltage sensor goes below 500mv and above 1000mv, setting this property to .90 will cause a threshold alert to 
+    max threshold.  Second it will raise the voltage min threshold.  So for example if a Cisco Device will shut down
+    if a voltage sensor goes below 500mv and above 1000mv, setting this property to .90 will cause a threshold alert to
     be generated if voltage drops below 450mv or above 900mv.
 * zCiscoMonIgnoreNotPresent(boolean, default True): if you set this to true, any alerts showing a sensor as "notPresent" will
     have a priority of informational rather than the normal critical status.  We find in practice that
     many routers/gateways can have external 2nd power supplies that show up with a state of  notPresent when a more
-    accurate state would be "not installed".  
+    accurate state would be "not installed".
     But you can also have a situation where not present is very bad if you dont replace something or some
     component fails in a way that causes it to look "notPresent"..so we leave it up to you...
 * zEnvMonMapIgnoreNames(string, default: None):  this zproperty can be used to exclude CiscoEnvMonE components from the model.  Just    add a regex, to exclude names of components from the model.  So for example to remove all componnets with the name
     that starts with CPU add ^CPU to the zproperty.  for CPU or Fan 1 do ^CPU|Fan\s1 ...
- 
+
 Important notes:
 ================
 
@@ -57,7 +57,7 @@ Important Note 1:  There are no mibs/traps in this ZenPack of transforms for sys
     If you want an example on how to parse the envmon mib traps and as a bonus check to see if a component is monitored and drop the event if it isnt
         you can refer to this gist.  But as a caution...make sure you keep an eye on zeneventd.log when you add new traps because
         in the wild you can get unexpected results that break transforms.
-        
+
         https://gist.github.com/dougsyer/4b21043e4e0143a20534
 
 Important Note 2:  Unlike the CiscoEnvMon Zenpack, there is no modelling for Cisco Expansion cards built into the Zenpack.  The reason is that we use the Enterprise Zenpack to provide this modelling.
@@ -123,7 +123,7 @@ Modeler Plugins
   plugin.
 
 
-To use the new features, bind these templates to the device classes that house your Cisco 
+To use the new features, bind these templates to the device classes that house your Cisco
 devices.
 
 Monitoring Templates
@@ -139,7 +139,7 @@ Event Classes Created
 /Events/Status/CiscoEnvMonPowerSupply
 /Events/Status/CiscoEnvMonTemperatureSensor
 /Events/Status/CiscoEnvMonVoltageSensor
- 
+
  Reports
 -------
 
@@ -147,6 +147,12 @@ Event Classes Created
 
 Updates
 =================================
+- Version 2.1.1
+  - full z6 RM support, chagne graph sizes
+  - added js renderers for status
+  - various code cleanups for style a few small fixes
+  - add in patch to make cisco device relations work without having to rebuild relations on new device creation
+  - update graph legends for Z6
 - Version 2.05
   - add logging to transforms
   - remove color codes from temperature sensors during modelling
@@ -158,7 +164,7 @@ Updates
 Future Enhancements / Known Issues
 ==================================
 - There appears to be an issue with uninstalling where not all of the components remove.  I **may** have fixed
-  this with the latest rev but havent tested removal again.  if you are going to remove this as is, id try to 
+  this with the latest rev but havent tested removal again.  if you are going to remove this as is, id try to
   remove the components first and then uninstall it just to be safe until I test it again.
 - I would love to show the current threshold values on the grid next to the shut down values but I cant
   get at the "factor" zproperties in the component to add it to the info adapter in order to add it to the
@@ -166,12 +172,12 @@ Future Enhancements / Known Issues
 - I may at some point make the zCiscoMonIgnoreNotPresent just skip the components in model.  thats easy to do but
   personally Id rather see them there than have them hidden.  An another easy alternative is to just not bind
   any templates to these components but again, there shouldnt be alot of components per device in a not present
-  state so I dont think this will cause much load but it may cause some NaN values... If i do see alot of Nan 
+  state so I dont think this will cause much load but it may cause some NaN values... If i do see alot of Nan
   values i probably will not allow the templates to bind to these devices after the model.
-- If you run this in parallel with the Enterprise cisco zenpack and use it to model the same components, you will have an issue where 
-  sometimes the events from this ZenPack will attach to the enterprise cisco zenapack components.  this shouldnt cause 
+- If you run this in parallel with the Enterprise cisco zenpack and use it to model the same components, you will have an issue where
+  sometimes the events from this ZenPack will attach to the enterprise cisco zenapack components.  this shouldnt cause
   any stility issues and the worka round it to filter the components using the documentation above...if you plan to do it
-  
+
 Known Cisco Bugs or Quirks that can effect the ZenPack
 ============================================
 - RPS power supplies in some routers will poll as not present but will send traps with no component in them.  this is an ios issue
