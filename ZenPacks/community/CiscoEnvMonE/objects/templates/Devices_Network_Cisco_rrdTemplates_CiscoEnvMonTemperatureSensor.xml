@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <objects>
 <!-- ('', 'zport', 'dmd', 'Devices', 'Network', 'Cisco', 'rrdTemplates', 'CiscoEnvMonTemperatureSensor') -->
-<object id='/zport/dmd/Devices/Network/Cisco/rrdTemplates/CiscoEnvMonTemperatureSensor' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
+<object id='/zport/dmd/Devices/Network/Cisco/rrdTemplates/CiscoEnvMonTemperatureSensor' module='Products.ZenModel.RRDTemplate' class='RRDTemplate' move='False'>
 <property type="string" id="targetPythonClass" mode="w" >
 ZenPacks.community.CiscoEnvMonE.CiscoEnvMonTemperatureSensor
 </property>
 <tomanycont id='datasources'>
-<object id='ciscoEnvMonTemperatureState' module='Products.ZenModel.BasicDataSource' class='BasicDataSource'>
+<object id='ciscoEnvMonTemperatureState' module='Products.ZenModel.BasicDataSource' class='BasicDataSource' move='False'>
 <property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
 SNMP
 </property>
@@ -32,7 +32,7 @@ False
 Auto
 </property>
 <tomanycont id='datapoints'>
-<object id='ciscoEnvMonTemperatureState' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<object id='ciscoEnvMonTemperatureState' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint' move='False'>
 <property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
 GAUGE
 </property>
@@ -42,7 +42,7 @@ True
 </object>
 </tomanycont>
 </object>
-<object id='ciscoEnvMonTemperatureStatusValue' module='Products.ZenModel.BasicDataSource' class='BasicDataSource'>
+<object id='ciscoEnvMonTemperatureStatusValue' module='Products.ZenModel.BasicDataSource' class='BasicDataSource' move='False'>
 <property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
 SNMP
 </property>
@@ -68,7 +68,7 @@ False
 Auto
 </property>
 <tomanycont id='datapoints'>
-<object id='ciscoEnvMonTemperatureStatusValue' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<object id='ciscoEnvMonTemperatureStatusValue' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint' move='False'>
 <property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
 GAUGE
 </property>
@@ -80,7 +80,7 @@ True
 </object>
 </tomanycont>
 <tomanycont id='thresholds'>
-<object id='TemperatureHigh' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<object id='TemperatureHigh' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold' move='False'>
 <property type="string" id="eventClass" mode="w" >
 /Status/CiscoEnvMonTemperatureSensor
 </property>
@@ -103,7 +103,7 @@ False
 0
 </property>
 </object>
-<object id='state' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<object id='state' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold' move='False'>
 <property type="string" id="eventClass" mode="w" >
 /Status/CiscoEnvMonTemperatureSensor
 </property>
@@ -131,7 +131,7 @@ False
 </object>
 </tomanycont>
 <tomanycont id='graphDefs'>
-<object id='Temperature Reading - C' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
+<object id='Temperature Reading - C' module='Products.ZenModel.GraphDefinition' class='GraphDefinition' move='False'>
 <property type="int" id="height" mode="w" >
 400
 </property>
@@ -166,7 +166,7 @@ True
 0
 </property>
 <tomanycont id='graphPoints'>
-<object id='TemperatureHigh' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
+<object id='TemperatureHigh' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint' move='False'>
 <property type="long" id="sequence" mode="w" >
 0
 </property>
@@ -177,7 +177,7 @@ TemperatureHigh
 ${graphPoint/id}
 </property>
 </object>
-<object id='ciscoEnvMonTemperatureStatusValue' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<object id='ciscoEnvMonTemperatureStatusValue' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint' move='False'>
 <property type="long" id="sequence" mode="w" >
 1
 </property>
@@ -214,7 +214,7 @@ False
 </object>
 </tomanycont>
 </object>
-<object id='Temperature Reading - F' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
+<object id='Temperature Reading - F' module='Products.ZenModel.GraphDefinition' class='GraphDefinition' move='False'>
 <property type="int" id="height" mode="w" >
 400
 </property>
@@ -249,7 +249,7 @@ True
 1
 </property>
 <tomanycont id='graphPoints'>
-<object id='TemperatureHigh' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
+<object id='TemperatureHigh' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint' move='False'>
 <property type="long" id="sequence" mode="w" >
 0
 </property>
@@ -260,7 +260,7 @@ TemperatureHigh
 ${graphPoint/id}
 </property>
 </object>
-<object id='ciscoEnvMonTemperatureStatusValue' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<object id='ciscoEnvMonTemperatureStatusValue' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint' move='False'>
 <property type="long" id="sequence" mode="w" >
 1
 </property>
@@ -300,7 +300,7 @@ False
 </object>
 </tomanycont>
 </object>
-<object id='Temperature Sensor State' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
+<object id='Temperature Sensor State' module='Products.ZenModel.GraphDefinition' class='GraphDefinition' move='False'>
 <property id='zendoc' type='string'>
 &lt;style&gt; h2 { color:blue; font-size:12pt; background-color:powderblue; } &lt;/style&gt;
   &lt;h2&gt;
@@ -368,7 +368,7 @@ True
   &lt;/h2&gt;
 </property>
 <tomanycont id='graphPoints'>
-<object id='ciscoEnvMonTemperatureState' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<object id='ciscoEnvMonTemperatureState' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint' move='False'>
 <property type="long" id="sequence" mode="w" >
 0
 </property>

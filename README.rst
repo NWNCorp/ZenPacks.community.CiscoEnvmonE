@@ -147,7 +147,9 @@ Event Classes Created
 
 Updates
 =================================
-- Version 2.1.1
+- Version 2.2.1 (dev)
+  - remove dependency on impact since sometimes you need to unintall impact to upgrade it.
+- Version 2.5.2
   - full z6 RM support, chagne graph sizes
   - added js renderers for status
   - various code cleanups for style a few small fixes

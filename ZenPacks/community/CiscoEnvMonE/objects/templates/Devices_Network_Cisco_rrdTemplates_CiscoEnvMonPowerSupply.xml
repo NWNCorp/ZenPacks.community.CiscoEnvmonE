@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <objects>
 <!-- ('', 'zport', 'dmd', 'Devices', 'Network', 'Cisco', 'rrdTemplates', 'CiscoEnvMonPowerSupply') -->
-<object id='/zport/dmd/Devices/Network/Cisco/rrdTemplates/CiscoEnvMonPowerSupply' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
+<object id='/zport/dmd/Devices/Network/Cisco/rrdTemplates/CiscoEnvMonPowerSupply' module='Products.ZenModel.RRDTemplate' class='RRDTemplate' move='False'>
 <property type="string" id="targetPythonClass" mode="w" >
 ZenPacks.community.CiscoEnvMonE.CiscoEnvMonPowerSupply
 </property>
 <tomanycont id='datasources'>
-<object id='ciscoEnvMonSupplyState' module='Products.ZenModel.BasicDataSource' class='BasicDataSource'>
+<object id='ciscoEnvMonSupplyState' module='Products.ZenModel.BasicDataSource' class='BasicDataSource' move='False'>
 <property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
 SNMP
 </property>
@@ -32,7 +32,7 @@ False
 Auto
 </property>
 <tomanycont id='datapoints'>
-<object id='ciscoEnvMonSupplyState' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<object id='ciscoEnvMonSupplyState' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint' move='False'>
 <property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
 GAUGE
 </property>
@@ -44,7 +44,7 @@ True
 </object>
 </tomanycont>
 <tomanycont id='thresholds'>
-<object id='state' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<object id='state' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold' move='False'>
 <property type="string" id="eventClass" mode="w" >
 /Status/CiscoEnvMonPowerSupply
 </property>
@@ -72,7 +72,7 @@ False
 </object>
 </tomanycont>
 <tomanycont id='graphDefs'>
-<object id='Power Supply State' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
+<object id='Power Supply State' module='Products.ZenModel.GraphDefinition' class='GraphDefinition' move='False'>
 <property id='zendoc' type='string'>
 &lt;style&gt; h2 { color:blue; font-size:12pt; background-color:powderblue; } &lt;/style&gt;
   &lt;h2&gt;
@@ -140,7 +140,7 @@ True
   &lt;/h2&gt;
 </property>
 <tomanycont id='graphPoints'>
-<object id='ciscoEnvMonSupplyState' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<object id='ciscoEnvMonSupplyState' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint' move='False'>
 <property type="long" id="sequence" mode="w" >
 0
 </property>

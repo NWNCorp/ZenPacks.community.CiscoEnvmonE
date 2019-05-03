@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <objects>
 <!-- ('', 'zport', 'dmd', 'Events', 'Status', 'CiscoEnvMonFan') -->
-<object id='/zport/dmd/Events/Status/CiscoEnvMonFan' module='Products.ZenEvents.EventClass' class='EventClass'>
+<object id='/zport/dmd/Events/Status/CiscoEnvMonFan' module='Products.ZenEvents.EventClass' class='EventClass' move='False'>
 <property type="text" id="transform" mode="w" >
 from ZenPacks.community.CiscoEnvMonE import transforms
 transforms.envmon_status_handler(device, component, evt)
@@ -11,7 +11,7 @@ True
 </property>
 </object>
 <!-- ('', 'zport', 'dmd', 'Events', 'Status', 'CiscoEnvMonPowerSupply') -->
-<object id='/zport/dmd/Events/Status/CiscoEnvMonPowerSupply' module='Products.ZenEvents.EventClass' class='EventClass'>
+<object id='/zport/dmd/Events/Status/CiscoEnvMonPowerSupply' module='Products.ZenEvents.EventClass' class='EventClass' move='False'>
 <property type="text" id="transform" mode="w" >
 from ZenPacks.community.CiscoEnvMonE import transforms
 transforms.envmon_status_handler(device, component, evt)
@@ -21,7 +21,7 @@ True
 </property>
 </object>
 <!-- ('', 'zport', 'dmd', 'Events', 'Status', 'CiscoEnvMonTemperatureSensor') -->
-<object id='/zport/dmd/Events/Status/CiscoEnvMonTemperatureSensor' module='Products.ZenEvents.EventClass' class='EventClass'>
+<object id='/zport/dmd/Events/Status/CiscoEnvMonTemperatureSensor' module='Products.ZenEvents.EventClass' class='EventClass' move='False'>
 <property type="text" id="transform" mode="w" >
 from ZenPacks.community.CiscoEnvMonE import transforms
 
@@ -38,7 +38,7 @@ True
 </property>
 </object>
 <!-- ('', 'zport', 'dmd', 'Events', 'Status', 'CiscoEnvMonVoltageSensor') -->
-<object id='/zport/dmd/Events/Status/CiscoEnvMonVoltageSensor' module='Products.ZenEvents.EventClass' class='EventClass'>
+<object id='/zport/dmd/Events/Status/CiscoEnvMonVoltageSensor' module='Products.ZenEvents.EventClass' class='EventClass' move='False'>
 <property type="text" id="transform" mode="w" >
 """
 if this is a threshold checking status, call envmon_status_handler()
