@@ -123,7 +123,7 @@ True
 False
 </property>
 <property type="string" id="maxval" mode="w" >
-(here.voltage_threshold_high) * ((here.zCiscoMonVoltageFactor) or 1)
+(int(here.voltage_threshold_high)) * ((here.zCiscoMonVoltageFactor) or 1)
 </property>
 <property type="int" id="escalateCount" mode="w" >
 0
@@ -146,7 +146,7 @@ True
 False
 </property>
 <property type="string" id="minval" mode="w" >
-(here.voltage_threshold_low) *  (1 + (1 - (here.zCiscoMonVoltageFactor or 1)))
+(int(here.voltage_threshold_low)) *  (1 + (1 - (here.zCiscoMonVoltageFactor or 1)))
 </property>
 <property type="int" id="escalateCount" mode="w" >
 0

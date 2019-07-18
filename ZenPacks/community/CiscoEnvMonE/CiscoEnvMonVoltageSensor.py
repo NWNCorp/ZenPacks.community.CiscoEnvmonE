@@ -48,11 +48,11 @@ class CiscoEnvMonVoltageSensor(HWComponent):
         {'id': 'voltage_threshold_high', 'type': 'string'},
         {'id': 'voltage_last_shutdown', 'type': 'string'},
         {'id': 'state', 'type': 'string'}
-        )
+    )
 
     _relations = HWComponent._relations + (
         ("hw", ToOne(ToManyCont, "Products.ZenModel.DeviceHW", "ciscoenvvoltagesensors")),
-        )
+    )
 
     factory_type_information = ({
         'actions': ({
@@ -60,8 +60,8 @@ class CiscoEnvMonVoltageSensor(HWComponent):
             'name': 'Template',
             'action': 'objTemplates',
             'permissions': (ZEN_CHANGE_DEVICE, )
-            }, )
         }, )
+    }, )
 
     def device(self):
         """ required for all components path back to the device """

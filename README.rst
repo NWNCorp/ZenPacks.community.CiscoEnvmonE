@@ -147,20 +147,22 @@ Event Classes Created
 
 Updates
 =================================
-- Version 2.2.1 (dev)
-  - remove dependency on impact since sometimes you need to unintall impact to upgrade it.
 - Version 2.5.2
   - full z6 RM support, chagne graph sizes
   - added js renderers for status
   - various code cleanups for style a few small fixes
   - add in patch to make cisco device relations work without having to rebuild relations on new device creation
   - update graph legends for Z6
+  - fix errors with voltage sensor threshold
+- Version 2.2.1
+  - remove dependency on impact since sometimes you need to unintall impact to upgrade it.
+- Version 2.03, fixed issue where last voltage restart property
 - Version 2.05
   - add logging to transforms
   - remove color codes from temperature sensors during modelling
   - fix errors with temperature sensor transforms due to incorrect access of properties
   - default temperature sensor max/mins to Maxint/2 and -Maxint-2 respectively (in case you model 0 as temperature threshold)
-- Version 2.03, fixed issue where last voltage restart property
+
 
 
 Future Enhancements / Known Issues
