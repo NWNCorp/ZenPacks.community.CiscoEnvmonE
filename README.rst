@@ -154,6 +154,10 @@ Updates
   - add in patch to make cisco device relations work without having to rebuild relations on new device creation
   - update graph legends for Z6
   - fix errors with voltage sensor threshold
+  - fix fans being set to warning thresholds
+  - add threshold event classes to go into /Threshold sub device class
+  - fix voltage sensors to sho up as Voltage Sensor (envmon)
+  - fix issue with temperature threshold not getting coverted to an integer.
 - Version 2.2.1
   - remove dependency on impact since sometimes you need to unintall impact to upgrade it.
 - Version 2.03, fixed issue where last voltage restart property
@@ -162,7 +166,6 @@ Updates
   - remove color codes from temperature sensors during modelling
   - fix errors with temperature sensor transforms due to incorrect access of properties
   - default temperature sensor max/mins to Maxint/2 and -Maxint-2 respectively (in case you model 0 as temperature threshold)
-  - fix voltage sensors to sho up as Voltage Sensor (envmon)
 
 
 

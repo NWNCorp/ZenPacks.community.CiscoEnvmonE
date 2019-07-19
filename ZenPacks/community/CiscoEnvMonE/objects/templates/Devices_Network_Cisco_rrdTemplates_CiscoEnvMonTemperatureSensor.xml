@@ -82,7 +82,7 @@ True
 <tomanycont id='thresholds'>
 <object id='TemperatureHigh' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold' move='False'>
 <property type="string" id="eventClass" mode="w" >
-/Status/CiscoEnvMonTemperatureSensor
+/Status/CiscoEnvMonTemperatureSensor/Threshold
 </property>
 <property type="int" id="severity" mode="w" >
 5
@@ -97,7 +97,7 @@ True
 False
 </property>
 <property type="string" id="maxval" mode="w" >
-(here.temperature_threshold) * ((here.zCiscoMonTemperatureFactor) or 1)
+(int(here.temperature_threshold)) * ((here.zCiscoMonTemperatureFactor) or 1)
 </property>
 <property type="int" id="escalateCount" mode="w" >
 0

@@ -49,7 +49,7 @@ True
 /Status/CiscoEnvMonFan
 </property>
 <property type="int" id="severity" mode="w" >
-3
+5
 </property>
 <property label="DataPoints" type="lines" id="dsnames" mode="w" >
 ['ciscoEnvMonFanState_ciscoEnvMonFanState']

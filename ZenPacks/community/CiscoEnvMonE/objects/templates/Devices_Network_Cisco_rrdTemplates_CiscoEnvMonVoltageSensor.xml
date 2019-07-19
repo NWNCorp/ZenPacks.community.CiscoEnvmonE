@@ -108,7 +108,7 @@ False
 </object>
 <object id='voltageHigh' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold' move='False'>
 <property type="string" id="eventClass" mode="w" >
-/Status/CiscoEnvMonVoltageSensor
+/Status/CiscoEnvMonVoltageSensor/Threshold
 </property>
 <property type="int" id="severity" mode="w" >
 5
@@ -131,7 +131,7 @@ False
 </object>
 <object id='voltageLow' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold' move='False'>
 <property type="string" id="eventClass" mode="w" >
-/Status/CiscoEnvMonVoltageSensor
+/Status/CiscoEnvMonVoltageSensor/Threshold
 </property>
 <property type="int" id="severity" mode="w" >
 5
