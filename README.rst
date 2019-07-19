@@ -162,6 +162,7 @@ Updates
   - remove color codes from temperature sensors during modelling
   - fix errors with temperature sensor transforms due to incorrect access of properties
   - default temperature sensor max/mins to Maxint/2 and -Maxint-2 respectively (in case you model 0 as temperature threshold)
+  - fix voltage sensors to sho up as Voltage Sensor (envmon)
 
 
 
