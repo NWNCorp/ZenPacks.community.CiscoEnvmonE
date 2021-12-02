@@ -1,0 +1,100 @@
+new	old
+Sw5 - PS1	Sw5, PS1 Normal, RPS NotExist
+Sw3 - PS1	Sw3, PS1 Normal, RPS NotExist
+Switch#1 - PowerSupply#1	Switch#1, PowerSupply#1, Status is Normal, RPS Not Present
+Sw1 - PS2	Sw1, PS2 Normal, RPS NotExist
+Sw4 - PS2	Sw4, PS2 Normal, RPS NotExist
+Sw4 - PS1	Sw4, PS1 Normal, RPS NotExist
+Sw3 - PS2	Sw3, PS2 Normal, RPS NotExist
+Sw7 - PS1	Sw7, PS1 Normal, RPS NotExist
+Sw1 - PS1	Sw1, PS1 Normal, RPS NotExist
+Sw2 - PS1	Sw2, PS1 Normal, RPS NotExist
+Sw6 - PS1	Sw6, PS1 Normal, RPS NotExist
+Sw2 - PS2	Sw2, PS2 Normal, RPS NotExist
+Switch 1 Power Supply 4	Switch 1 Power Supply 4
+Switch 1 Power Supply 1	Switch 1 Power Supply 1
+Switch 1 Power Supply 2	Switch 1 Power Supply 2
+Switch 1 Power Supply 3	Switch 1 Power Supply 3
+Unknown	Unknown
+Switch 7 - Power Supply B	Switch 7 - Power Supply B, Normal
+Switch 4 - Power Supply A	Switch 4 - Power Supply A, Shutdown
+Switch 6 - Power Supply B	Switch 6 - Power Supply B, Normal
+Switch 1 - Power Supply B	Switch 1 - Power Supply B, NotExist
+C2921/C2951 AC Power Supply	C2921/C2951 AC Power Supply
+Switch 1 - Power Supply A	Switch 1 - Power Supply A, Normal
+C2911 AC Power Supply	C2911 AC Power Supply
+VG3X0 AC Power Supply	VG3X0 AC Power Supply
+12V System PS	12V System PS
+chassis-2 Power Supply 2	chassis-2 Power Supply 2, C6880-
+C2921/C2951 DC Power Supply	C2921/C2951 DC Power Supply
+Switch 1 - Power Supply B	Switch 1 - Power Supply B, Normal
+Switch 5 - Power Supply B	Switch 5 - Power Supply B, NotExist
+3.3V  Supply	3.3V  Supply
+Switch 2 - Power Supply B	Switch 2 - Power Supply B, Shutdown
+Switch 6 - Power Supply B	Switch 6 - Power Supply B, NotExist
+Power supply	Power supply
+Switch 6 - Power Supply A	Switch 6 - Power Supply A, Normal
+Switch 3 - Power Supply B	Switch 3 - Power Supply B, NotExist
+Main Power Supply	Main Power Supply
+Switch 4 - Power Supply A	Switch 4 - Power Supply A, Normal
+Switch 2 - Power Supply B	Switch 2 - Power Supply B, NotExist
+Switch 8 - Power Supply B	Switch 8 - Power Supply B, Normal
+1.5V  Supply	1.5V  Supply
+Switch 4 - Power Supply A	Switch 4 - Power Supply A, NotExist
+Switch 8 - Power Supply A	Switch 8 - Power Supply A, Normal
+C1941/C2901 AC Power Supply	C1941/C2901 AC Power Supply
+Switch 1 - Power Supply A	Switch 1 - Power Supply A, Shutdown
+0.75V Supply	0.75V Supply
+Switch 5 - Power Supply B	Switch 5 - Power Supply B, Normal
+Switch 2 - Power Supply B	Switch 2 - Power Supply B, Normal
+5V    Supply	5V    Supply
+12AV  Supply	12AV  Supply
+chassis-1 Power Supply 2	chassis-1 Power Supply 2, C6880-
+1.8V  Supply	1.8V  Supply
+Sw2 - PS1	Sw2, PS1 Normal
+Switch 7 - Power Supply A	Switch 7 - Power Supply A, Normal
+C3900 DC Power Supply 1	C3900 DC Power Supply 1
+Switch 3 - Power Supply A	Switch 3 - Power Supply A, Normal
+Switch 2 - Power Supply A	Switch 2 - Power Supply A, Normal
+Sw1 - PS1	Sw1, PS1 Normal
+C3900 Unknown Power Supply 2	C3900 Unknown Power Supply 2
+Switch 2 Power Supply Module 4	Switch 2 Power Supply Module 4
+Switch 2 Power Supply Module 1	Switch 2 Power Supply Module 1
+Switch 2 Power Supply Module 2	Switch 2 Power Supply Module 2
+Switch 2 Power Supply Module 3	Switch 2 Power Supply Module 3
+Switch 3 - Power Supply A	Switch 3 - Power Supply A, NotExist
+Switch 2 - Power Supply A	Switch 2 - Power Supply A, Shutdown
+Switch 1 Power Supply Module 3	Switch 1 Power Supply Module 3
+Switch 1 Power Supply Module 2	Switch 1 Power Supply Module 2
+Switch 1 Power Supply Module 1	Switch 1 Power Supply Module 1
+Switch 1 Power Supply Module 4	Switch 1 Power Supply Module 4
+Switch 1 - Power Supply B	Switch 1 - Power Supply B, Shutdown
+Switch 2 Power Supply 4	Switch 2 Power Supply 4
+Switch 2 Power Supply 1	Switch 2 Power Supply 1
+chassis-1 Power Supply 1	chassis-1 Power Supply 1, C6880-
+Switch 2 Power Supply 3	Switch 2 Power Supply 3
+Switch 2 Power Supply 2	Switch 2 Power Supply 2
+Switch 4 - Power Supply B	Switch 4 - Power Supply B, Normal
+Switch 3 - Power Supply B	Switch 3 - Power Supply B, Normal
+1.2V  Supply	1.2V  Supply
+C3900 DC Power Supply 2	C3900 DC Power Supply 2
+chassis-2 Power Supply 1	chassis-2 Power Supply 1, C6880-
+C3900 AC Power Supply 1	C3900 AC Power Supply 1
+C3900 AC Power Supply 2	C3900 AC Power Supply 2
+Switch 3 - Power Supply A	Switch 3 - Power Supply A, Shutdown
+Switch 5 - Power Supply A	Switch 5 - Power Supply A, Normal
+Switch 1 - Power Supply A	Switch 1 - Power Supply A, NotExist
+AC Power Supply	AC Power Supply
+1.05V Supply	1.05V Supply
+Switch 2 - Power Supply A	Switch 2 - Power Supply A, NotExist
+1V    Supply	1V    Supply
+Switch 4 - Power Supply B	Switch 4 - Power Supply B, NotExist
+Redundant Power Supply	Redundant Power Supply
+2.5V  Supply	2.5V  Supply
+VG350 Unknown Power Supply 1	VG350 Unknown Power Supply 1
+Sw2 - PS2	Sw2, PS2 Normal
+VG350 AC Power Supply 1	VG350 AC Power Supply 1
+VG350 AC Power Supply 2	VG350 AC Power Supply 2
+48V System PS	48V System PS
+Sw1 - PS2	Sw1, PS2 Normal
+Unknown-(probable IOS bug)	Unknown-(probable IOS bug)
