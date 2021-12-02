@@ -8,7 +8,7 @@ AUTHOR = "Doug Syer"
 LICENSE = "GPLv2"
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.community']
 PACKAGES = ['ZenPacks', 'ZenPacks.community', 'ZenPacks.community.CiscoEnvMonE']
-INSTALL_REQUIRES = ['ZenPacks.zenoss.Impact', 'ZenPacks.zenoss.ZenPackLib', 'ZenPacks.zenoss.CiscoMonitor', 'ZenPacks.zenoss.Layer2', 'ZenPacks.zenoss.PredictiveThreshold', 'ZenPacks.zenoss.Capacity', 'ZenPacks.zenoss.CalculatedPerformance', 'ZenPacks.zenoss.DurationThreshold']
+INSTALL_REQUIRES = ['ZenPacks.zenoss.ZenPackLib', 'ZenPacks.zenoss.CiscoMonitor', 'ZenPacks.zenoss.PredictiveThreshold', 'ZenPacks.zenoss.Capacity', 'ZenPacks.zenoss.CalculatedPerformance', 'ZenPacks.zenoss.DurationThreshold']
 COMPAT_ZENOSS_VERS = ">=4.2.3"
 PREV_ZENPACK_NAME = ""
 # STOP_REPLACEMENTS
