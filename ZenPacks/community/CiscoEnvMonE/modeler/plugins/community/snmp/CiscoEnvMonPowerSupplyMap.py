@@ -71,6 +71,7 @@ class CiscoEnvMonPowerSupplyMap(SnmpPlugin):
                 om.supply_source = "Not Reported"
                 om.snmpindex = snmpindex.strip('.')
 
+            # TODO: Remove state from title
             om.id = self.prepId(om.title)
             om.state = decode_envmon_state(om.state)
             om.snmpindex = snmpindex.strip('.')
