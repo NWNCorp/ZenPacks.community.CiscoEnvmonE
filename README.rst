@@ -147,6 +147,8 @@ Event Classes Created
 
 Updates
 =================================
+- Version 2.5.3
+  - Updated Power Supply modeler to remove status from the name
 - Version 2.5.2
   - full z6 RM support, chagne graph sizes
   - added js renderers for status
