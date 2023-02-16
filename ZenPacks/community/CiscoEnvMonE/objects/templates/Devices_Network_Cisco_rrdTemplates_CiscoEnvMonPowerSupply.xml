@@ -174,6 +174,86 @@ False
 </object>
 </tomanycont>
 </object>
+<object id='Power Supply Status' module='Products.ZenModel.GraphDefinition' class='GraphDefinition' move='False'>
+<property type="int" id="height" mode="w" >
+400
+</property>
+<property type="int" id="width" mode="w" >
+1000
+</property>
+<property type="string" id="units" mode="w" >
+State Code
+</property>
+<property type="boolean" id="log" mode="w" >
+False
+</property>
+<property type="boolean" id="base" mode="w" >
+False
+</property>
+<property type="boolean" id="autoscale" mode="w" >
+None
+</property>
+<property type="int" id="miny" mode="w" >
+0
+</property>
+<property type="int" id="ceiling" mode="w" >
+None
+</property>
+<property type="int" id="maxy" mode="w" >
+10
+</property>
+<property type="text" id="custom" mode="w" >
+COMMENT: \n
+COMMENT:---Status Codes---\n
+COMMENT: \n
+COMMENT:1\: Normal\t\t - good performance readings and sensor functioning\n
+COMMENT:2\: Warning\t\t - typically power supply sensor reading low or high\n
+COMMENT:3\: Critical\t\t - typically power supply sensor reading low or high\n
+COMMENT:4\: Shutdown\t\t - power supply sensor disabled\n
+COMMENT:5\: Not Present\t\t - not installed or missing\n
+COMMENT:6\: Not Functioning\t - broken sensor\n
+</property>
+<property type="boolean" id="hasSummary" mode="w" >
+True
+</property>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
+<tomanycont id='graphPoints'>
+<object id='ciscoEnvMonSupplyState' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint' move='False'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+LINE
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+False
+</property>
+<property type="string" id="format" mode="w" >
+%5.2lf%s
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+ciscoEnvMonSupplyState_ciscoEnvMonSupplyState
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+<property type="boolean" id="skipCalc" mode="w" >
+False
+</property>
+</object>
+</tomanycont>
+</object>
 </tomanycont>
 </object>
 </objects>
