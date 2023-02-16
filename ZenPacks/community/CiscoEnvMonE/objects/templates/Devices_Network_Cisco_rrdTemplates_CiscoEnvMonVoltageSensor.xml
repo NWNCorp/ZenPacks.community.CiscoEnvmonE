@@ -255,6 +255,9 @@ ${graphPoint/id}
 </tomanycont>
 </object>
 <object id='Voltage Sensor State' module='Products.ZenModel.GraphDefinition' class='GraphDefinition' move='False'>
+<property id='zendoc' type='string'>
+,  \n, ---Status Codes---\n,  \n, 1\: Normal\t\t - good voltage readings and sensor functioning\n, 2\: Warning\t\t - typically voltage sensor reading low or high\n, 3\: Critical\t\t - typically voltage sensor reading low or high\n, 4\: Shutdown\t\t - voltage sensor disabled\n, 5\: Not Present\t\t - not installed or missing\n, 6\: Not Functioning\t - broken Sensor\n
+</property>
 <property type="int" id="height" mode="w" >
 500
 </property>
@@ -298,6 +301,9 @@ True
 </property>
 <property type="long" id="sequence" mode="w" >
 1
+</property>
+<property type="string" id="description" mode="w" >
+,  \n, ---Status Codes---\n,  \n, 1\: Normal\t\t - good voltage readings and sensor functioning\n, 2\: Warning\t\t - typically voltage sensor reading low or high\n, 3\: Critical\t\t - typically voltage sensor reading low or high\n, 4\: Shutdown\t\t - voltage sensor disabled\n, 5\: Not Present\t\t - not installed or missing\n, 6\: Not Functioning\t - broken Sensor\n
 </property>
 <tomanycont id='graphPoints'>
 <object id='ciscoEnvMonVoltageState' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint' move='False'>

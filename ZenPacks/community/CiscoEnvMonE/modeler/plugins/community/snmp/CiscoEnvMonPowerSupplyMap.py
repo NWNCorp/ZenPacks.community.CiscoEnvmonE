@@ -14,13 +14,19 @@ CiscoPowerSupplyMap maps the ciscoEnvMonTemperatureStatusTable table to power su
 #
 ################################################################################
 
+import re
 
 from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetTableMap
+
 from ZenPacks.community.CiscoEnvMonE.utils import (
     decode_envmon_state,
     decode_ps_source,
     match_exclude_regex
 )
+
+
+RPS_RE = '(.*?),\s(PS\d|PowerSupply#\d).*'
+PS_RE = '(.*?),\s(PS\d)'
 
 
 class CiscoEnvMonPowerSupplyMap(SnmpPlugin):
@@ -40,6 +46,20 @@ class CiscoEnvMonPowerSupplyMap(SnmpPlugin):
                         '.3': 'state',
                         '.4': 'supply_source',
                     }), )
+
+    def cleanName(self, name):
+        if name.count(',') > 1:
+            m = re.search(RPS_RE, name)
+            if m:
+                name = ' - '.join(m.groups())
+        else:
+            m = re.search(PS_RE, name)
+            if m:
+                name = ' - '.join(m.groups())
+            else:
+                name = name.split(',')[0] if ',' in name else name
+
+        return name
 
     def process(self, device, results, log):
         """collect snmp information from this device"""
@@ -71,7 +91,11 @@ class CiscoEnvMonPowerSupplyMap(SnmpPlugin):
                 om.supply_source = "Not Reported"
                 om.snmpindex = snmpindex.strip('.')
 
-            om.id = self.prepId(om.title)
+            # Since title gets set from objectMap(),
+            # we need to reset it after it is cleaned
+            name = self.cleanName(om.title)
+            om.id = self.prepId(name)
+            om.title = name
             om.state = decode_envmon_state(om.state)
             om.snmpindex = snmpindex.strip('.')
             rm.append(om)
@@ -79,6 +103,6 @@ class CiscoEnvMonPowerSupplyMap(SnmpPlugin):
         if rm.maps:
             log.info('Found %d CiscoEnvMonPowerSupplies' % len(rm.maps))
         else:
-            log.info('No CiscoEnvMonFans Found')
+            log.info('No CiscoEnvMonPowerSupplies Found')
 
         return rm
